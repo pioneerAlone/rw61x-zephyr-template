@@ -2,7 +2,7 @@
 
 **Last Updated:** 2026-02-28
 **Current Phase:** Phase 1 - Toolchain Foundation
-**Status:** Ready to Start
+**Status:** In Progress
 
 ---
 
@@ -12,15 +12,14 @@
 
 **Goal:** Establish working build/debug environment for RW61x
 
-**Progress:** 0/8 requirements completed
+**Progress:** 2/8 requirements completed (25%)
 
 **Next Actions:**
 1. Clone nxp_zsdk repository (nxp-v4.3-branch)
 2. Initialize west workspace
-3. Configure VS Code with Zephyr extensions
-4. Create minimal RW61x application
-5. Verify UART logging output
-6. Set up JTAG/SWD debugger
+3. Create minimal RW61x application (CMakeLists.txt, prj.conf, main.c)
+4. Verify UART logging output
+5. Test build and flash workflow
 
 **Blockers:** None
 
@@ -30,26 +29,26 @@
 
 | Phase | Status | Requirements | Completed | Progress |
 |-------|--------|--------------|-----------|----------|
-| Phase 1: Toolchain Foundation | 🔵 Active | 8 | 0 | 0% |
+| Phase 1: Toolchain Foundation | 🔵 Active | 8 | 2 | 25% |
 | Phase 2: WiFi Connectivity | ⚪ Pending | 9 | 0 | 0% |
 | Phase 3: BLE Functionality | ⚪ Pending | 5 | 0 | 0% |
 | Phase 4: WiFi/BLE Coexistence | ⚪ Pending | 5 | 0 | 0% |
 | Phase 5: System Features & OTA | ⚪ Pending | 12 | 0 | 0% |
 | Phase 6: Documentation & Examples | ⚪ Pending | 6 | 0 | 0% |
 
-**Overall Progress:** 0/45 requirements (0%)
+**Overall Progress:** 2/45 requirements (4%)
 
 ---
 
 ## Requirements Status
 
-### Phase 1: Toolchain Foundation (0/8)
+### Phase 1: Toolchain Foundation (2/8)
 
 - [ ] TOOL-01: 基于 nxp_zsdk (nxp-v4.3-branch) 创建可编译的 RW61x 工程
-- [ ] TOOL-02: 配置 VS Code + west 开发环境并验证可用性
+- [x] TOOL-02: 配置 VS Code + west 开发环境并验证可用性
 - [ ] TOOL-03: 配置设备树（Device Tree）支持 RW61x 硬件
 - [ ] TOOL-04: 验证编译、烧录、运行基本流程
-- [ ] TOOL-05: 集成 JTAG/SWD 硬件调试器支持（pyOCD 或 J-Link）
+- [x] TOOL-05: 集成 JTAG/SWD 硬件调试器支持（pyOCD 或 J-Link）
 - [ ] SYS-01: 集成 Zephyr 日志系统（串口输出）
 - [ ] DBG-01: 配置串口日志输出
 - [ ] DBG-02: 验证 JTAG/SWD 断点调试
@@ -110,6 +109,9 @@
 - ✅ Roadmap created with 6 phases
 - ✅ All 45 v1 requirements mapped to phases
 - ✅ Phase 1 ready to start
+- ✅ Plan 01-02 executed: VS Code workspace configuration created
+- ✅ TOOL-02 completed: VS Code + west development environment configured
+- ✅ TOOL-05 completed: J-Link debugger support integrated
 
 ---
 
@@ -125,6 +127,9 @@ None yet - project just started.
 |------|----------|-----------|--------|
 | 2026-02-28 | 6-phase roadmap structure | Follows research recommendations: toolchain → connectivity → coexistence → production features | Clear progression, reduces risk |
 | 2026-02-28 | Phase 2/3 can overlap | WiFi and BLE are independent subsystems | Faster delivery if multiple developers |
+| 2026-02-28 | J-Link device string "RW612" | Default from research; alternative MIMXRW612 documented in comments | Developer can verify with JLinkExe if needed |
+| 2026-02-28 | SVD file path included but optional | Path provided for peripheral register view; removal instructions if file missing | Better debugging experience when available |
+| 2026-02-28 | Dedicated west blobs fetch task | hal_nxp firmware blobs critical for WiFi/BLE; separate task for visibility | Prevents "forgot to fetch blobs" issues |
 
 ---
 
