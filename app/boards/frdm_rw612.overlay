@@ -1,0 +1,19 @@
+/*
+ * frdm_rw612.overlay — Device Tree Overlay for FRDM-RW612 Board
+ *
+ * This overlay configures board-specific hardware settings:
+ * - Sets flexcomm3 as the console UART
+ * - Sets flexcomm3 as the shell UART
+ *
+ * Zephyr automatically applies this overlay when building for frdm_rw612 board.
+ * The file name must match the board target: <board_name>.overlay
+ *
+ * For EVK-RW612 board, rename this file to: rw612_evk.overlay
+ */
+
+/ {
+    chosen {
+        zephyr,console = &flexcomm3;
+        zephyr,shell-uart = &flexcomm3;
+    };
+};
