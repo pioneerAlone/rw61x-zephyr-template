@@ -39,7 +39,7 @@ This roadmap delivers a validated RW61x Zephyr firmware template through 6 phase
 - **DBG-02**: 验证 JTAG/SWD 断点调试
 
 **Plans:**
-- [ ] 01-01-PLAN.md — Project scaffold: west.yml, CMakeLists.txt, main.c, prj.conf, Kconfig fragments, DTS overlay
+- [x] 01-01-PLAN.md — Project scaffold: west.yml, CMakeLists.txt, main.c, prj.conf, Kconfig fragments, DTS overlay (completed 2026-02-28)
 - [x] 01-02-PLAN.md — VS Code integration: launch.json (J-Link), tasks.json, extensions.json (completed 2026-02-28)
 - [ ] 01-03-PLAN.md — Hardware verification: build, flash, UART output, J-Link debug checkpoint
 

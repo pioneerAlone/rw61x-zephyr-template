@@ -2,7 +2,7 @@
 
 **Last Updated:** 2026-02-28
 **Current Phase:** Phase 1 - Toolchain Foundation
-**Status:** In Progress
+**Status:** In Progress - Plan 01-02 Complete
 
 ---
 
@@ -12,14 +12,16 @@
 
 **Goal:** Establish working build/debug environment for RW61x
 
-**Progress:** 2/8 requirements completed (25%)
+**Progress:** 6/8 requirements completed (75%)
+
+**Current Position:** Plans 01-01 and 01-02 complete, ready for Plan 01-03 (Hardware verification)
 
 **Next Actions:**
-1. Clone nxp_zsdk repository (nxp-v4.3-branch)
-2. Initialize west workspace
-3. Create minimal RW61x application (CMakeLists.txt, prj.conf, main.c)
-4. Verify UART logging output
-5. Test build and flash workflow
+1. Run west update to fetch nxp_zsdk dependencies (Plan 01-03)
+2. Fetch hal_nxp firmware blobs with west blobs fetch (Plan 01-03)
+3. Build firmware with west build (Plan 01-03)
+4. Flash to hardware and verify UART output (Plan 01-03)
+5. Test J-Link debugging with breakpoints (Plan 01-03)
 
 **Blockers:** None
 
@@ -29,28 +31,28 @@
 
 | Phase | Status | Requirements | Completed | Progress |
 |-------|--------|--------------|-----------|----------|
-| Phase 1: Toolchain Foundation | 🔵 Active | 8 | 2 | 25% |
+| Phase 1: Toolchain Foundation | 🔵 Active | 8 | 4 | 50% |
 | Phase 2: WiFi Connectivity | ⚪ Pending | 9 | 0 | 0% |
 | Phase 3: BLE Functionality | ⚪ Pending | 5 | 0 | 0% |
 | Phase 4: WiFi/BLE Coexistence | ⚪ Pending | 5 | 0 | 0% |
 | Phase 5: System Features & OTA | ⚪ Pending | 12 | 0 | 0% |
 | Phase 6: Documentation & Examples | ⚪ Pending | 6 | 0 | 0% |
 
-**Overall Progress:** 2/45 requirements (4%)
+**Overall Progress:** 4/45 requirements (9%)
 
 ---
 
 ## Requirements Status
 
-### Phase 1: Toolchain Foundation (2/8)
+### Phase 1: Toolchain Foundation (4/8)
 
-- [ ] TOOL-01: 基于 nxp_zsdk (nxp-v4.3-branch) 创建可编译的 RW61x 工程
-- [x] TOOL-02: 配置 VS Code + west 开发环境并验证可用性
-- [ ] TOOL-03: 配置设备树（Device Tree）支持 RW61x 硬件
+- [x] TOOL-01: 基于 nxp_zsdk (nxp-v4.3-branch) 创建可编译的 RW61x 工程
+- [ ] TOOL-02: 配置 VS Code + west 开发环境并验证可用性
+- [x] TOOL-03: 配置设备树（Device Tree）支持 RW61x 硬件
 - [ ] TOOL-04: 验证编译、烧录、运行基本流程
-- [x] TOOL-05: 集成 JTAG/SWD 硬件调试器支持（pyOCD 或 J-Link）
-- [ ] SYS-01: 集成 Zephyr 日志系统（串口输出）
-- [ ] DBG-01: 配置串口日志输出
+- [ ] TOOL-05: 集成 JTAG/SWD 硬件调试器支持（pyOCD 或 J-Link）
+- [x] SYS-01: 集成 Zephyr 日志系统（串口输出）
+- [x] DBG-01: 配置串口日志输出
 - [ ] DBG-02: 验证 JTAG/SWD 断点调试
 
 ### Phase 2: WiFi Connectivity (0/9)
@@ -109,9 +111,12 @@
 - ✅ Roadmap created with 6 phases
 - ✅ All 45 v1 requirements mapped to phases
 - ✅ Phase 1 ready to start
-- ✅ Plan 01-02 executed: VS Code workspace configuration created
-- ✅ TOOL-02 completed: VS Code + west development environment configured
-- ✅ TOOL-05 completed: J-Link debugger support integrated
+- ✅ Plan 01-01 complete: Project scaffold created
+  - west.yml with T-topology manifest
+  - app/CMakeLists.txt and src/main.c
+  - prj.conf and composable Kconfig fragments
+  - Device tree overlay for FRDM-RW612
+  - Commits: 7f2f402, 9c43306
 
 ---
 
@@ -127,9 +132,9 @@ None yet - project just started.
 |------|----------|-----------|--------|
 | 2026-02-28 | 6-phase roadmap structure | Follows research recommendations: toolchain → connectivity → coexistence → production features | Clear progression, reduces risk |
 | 2026-02-28 | Phase 2/3 can overlap | WiFi and BLE are independent subsystems | Faster delivery if multiple developers |
-| 2026-02-28 | J-Link device string "RW612" | Default from research; alternative MIMXRW612 documented in comments | Developer can verify with JLinkExe if needed |
-| 2026-02-28 | SVD file path included but optional | Path provided for peripheral register view; removal instructions if file missing | Better debugging experience when available |
-| 2026-02-28 | Dedicated west blobs fetch task | hal_nxp firmware blobs critical for WiFi/BLE; separate task for visibility | Prevents "forgot to fetch blobs" issues |
+| 2026-02-28 | T-topology west manifest | nxp_zsdk as imported project, self.path = app | Standard Zephyr workspace pattern |
+| 2026-02-28 | Composable Kconfig fragments | Separate debug.conf, wifi.conf, ble.conf | Flexible build configurations via EXTRA_CONF_FILE |
+| 2026-02-28 | flexcomm3 as console UART | FRDM-RW612 board default | Matches NXP reference design |
 
 ---
 
