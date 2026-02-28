@@ -20,6 +20,8 @@ This roadmap delivers a validated RW61x Zephyr firmware template through 6 phase
 
 **Duration:** 1-2 days
 
+**Plans:** 3 plans
+
 **Success Criteria:**
 - Developer can compile RW61x firmware from VS Code
 - Firmware boots on hardware and prints "Hello World" via UART
@@ -35,6 +37,11 @@ This roadmap delivers a validated RW61x Zephyr firmware template through 6 phase
 - **SYS-01**: 集成 Zephyr 日志系统（串口输出）
 - **DBG-01**: 配置串口日志输出
 - **DBG-02**: 验证 JTAG/SWD 断点调试
+
+**Plans:**
+- [ ] 01-01-PLAN.md — Project scaffold: west.yml, CMakeLists.txt, main.c, prj.conf, Kconfig fragments, DTS overlay
+- [ ] 01-02-PLAN.md — VS Code integration: launch.json (J-Link), tasks.json, extensions.json
+- [ ] 01-03-PLAN.md — Hardware verification: build, flash, UART output, J-Link debug checkpoint
 
 **Deliverables:**
 - Working CMakeLists.txt and prj.conf
