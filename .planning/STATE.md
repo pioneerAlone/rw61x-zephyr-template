@@ -1,0 +1,144 @@
+# Project State: RW61x Zephyr 工程模版
+
+**Last Updated:** 2026-02-28
+**Current Phase:** Phase 1 - Toolchain Foundation
+**Status:** Ready to Start
+
+---
+
+## Current Status
+
+### Active Phase: Phase 1 - Toolchain Foundation
+
+**Goal:** Establish working build/debug environment for RW61x
+
+**Progress:** 0/8 requirements completed
+
+**Next Actions:**
+1. Clone nxp_zsdk repository (nxp-v4.3-branch)
+2. Initialize west workspace
+3. Configure VS Code with Zephyr extensions
+4. Create minimal RW61x application
+5. Verify UART logging output
+6. Set up JTAG/SWD debugger
+
+**Blockers:** None
+
+---
+
+## Phase Progress
+
+| Phase | Status | Requirements | Completed | Progress |
+|-------|--------|--------------|-----------|----------|
+| Phase 1: Toolchain Foundation | 🔵 Active | 8 | 0 | 0% |
+| Phase 2: WiFi Connectivity | ⚪ Pending | 9 | 0 | 0% |
+| Phase 3: BLE Functionality | ⚪ Pending | 5 | 0 | 0% |
+| Phase 4: WiFi/BLE Coexistence | ⚪ Pending | 5 | 0 | 0% |
+| Phase 5: System Features & OTA | ⚪ Pending | 12 | 0 | 0% |
+| Phase 6: Documentation & Examples | ⚪ Pending | 6 | 0 | 0% |
+
+**Overall Progress:** 0/45 requirements (0%)
+
+---
+
+## Requirements Status
+
+### Phase 1: Toolchain Foundation (0/8)
+
+- [ ] TOOL-01: 基于 nxp_zsdk (nxp-v4.3-branch) 创建可编译的 RW61x 工程
+- [ ] TOOL-02: 配置 VS Code + west 开发环境并验证可用性
+- [ ] TOOL-03: 配置设备树（Device Tree）支持 RW61x 硬件
+- [ ] TOOL-04: 验证编译、烧录、运行基本流程
+- [ ] TOOL-05: 集成 JTAG/SWD 硬件调试器支持（pyOCD 或 J-Link）
+- [ ] SYS-01: 集成 Zephyr 日志系统（串口输出）
+- [ ] DBG-01: 配置串口日志输出
+- [ ] DBG-02: 验证 JTAG/SWD 断点调试
+
+### Phase 2: WiFi Connectivity (0/9)
+
+- [ ] WIFI-01: 实现 WiFi Station 模式连接 AP
+- [ ] WIFI-02: 支持 WPA2/WPA3 安全认证
+- [ ] WIFI-03: 实现 DHCP 客户端自动获取 IP
+- [ ] WIFI-04: 实现网络连接管理（连接、断开、重连）
+- [ ] WIFI-05: 验证 WiFi 固件 blob 正确加载
+- [ ] SYS-03: 集成 Shell/CLI 接口用于调试
+- [ ] SYS-05: 配置线程栈大小（WiFi/BLE 需 2-4KB）
+- [ ] SEC-01: 集成 mbedTLS 支持
+- [ ] SEC-02: 验证 TLS 加密通信
+
+### Phase 3: BLE Functionality (0/5)
+
+- [ ] BLE-01: 实现 BLE 外设角色（Peripheral）
+- [ ] BLE-02: 实现 BLE 广播功能
+- [ ] BLE-03: 实现 GATT 服务定义和注册
+- [ ] BLE-04: 支持 BLE 连接和断开
+- [ ] BLE-05: 实现 GATT 特征读写回调
+
+### Phase 4: WiFi/BLE Coexistence (0/5)
+
+- [ ] COEX-01: 验证 WiFi 和 BLE 同时工作
+- [ ] COEX-02: 测试 WiFi 连接时 BLE 广播稳定性
+- [ ] COEX-03: 测试 BLE 连接时 WiFi 数据传输稳定性
+- [ ] COEX-04: 配置多射频仲裁机制
+- [ ] DBG-04: 集成性能分析工具（线程统计、内存使用）
+
+### Phase 5: System Features & OTA (0/12)
+
+- [ ] SYS-02: 实现持久化配置存储（NVS）
+- [ ] SYS-04: 实现看门狗定时器
+- [ ] OTA-01: 集成 MCUboot 安全启动
+- [ ] OTA-02: 配置双 bank flash 分区布局
+- [ ] OTA-03: 实现 OTA 固件更新机制
+- [ ] OTA-04: 验证 OTA 更新流程（下载、验证、重启）
+- [ ] SEC-03: 配置 EdgeLock Secure Enclave（如果 SDK 支持）
+- [ ] DBG-03: 实现网络日志输出（可选）
+
+### Phase 6: Documentation & Examples (0/6)
+
+- [ ] DOC-01: 编写工具链安装和配置文档
+- [ ] DOC-02: 编写 WiFi 连接示例和说明
+- [ ] DOC-03: 编写 BLE 服务示例和说明
+- [ ] DOC-04: 编写 OTA 更新操作指南
+- [ ] DOC-05: 编写常见问题排查文档
+- [ ] DOC-06: 提供完整的示例代码和注释
+
+---
+
+## Recent Changes
+
+**2026-02-28:**
+- ✅ Roadmap created with 6 phases
+- ✅ All 45 v1 requirements mapped to phases
+- ✅ Phase 1 ready to start
+
+---
+
+## Known Issues
+
+None yet - project just started.
+
+---
+
+## Decisions Log
+
+| Date | Decision | Rationale | Impact |
+|------|----------|-----------|--------|
+| 2026-02-28 | 6-phase roadmap structure | Follows research recommendations: toolchain → connectivity → coexistence → production features | Clear progression, reduces risk |
+| 2026-02-28 | Phase 2/3 can overlap | WiFi and BLE are independent subsystems | Faster delivery if multiple developers |
+
+---
+
+## Risk Register
+
+| Risk | Probability | Impact | Mitigation | Status |
+|------|-------------|--------|------------|--------|
+| WiFi firmware blob missing | Medium | High | Verify hal_nxp module early in Phase 1 | Open |
+| Thread stack overflow | Medium | Medium | Follow research guidance (2-4KB stacks) | Open |
+| JTAG debugger macOS issues | Low | Medium | Test pyOCD and J-Link alternatives | Open |
+| WPA3 incomplete support | Low | Low | Fall back to WPA2 if needed | Open |
+| EdgeLock documentation gaps | Medium | Low | Defer SEC-03 if SDK support unclear | Open |
+
+---
+
+*State tracking started: 2026-02-28*
+*Update this file as phases progress*
