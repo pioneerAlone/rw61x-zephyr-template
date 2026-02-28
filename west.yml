@@ -1,0 +1,15 @@
+# west.yml — T-topology: this repo IS the manifest repo
+# Run: west init -l .  (if initializing from existing repo)
+# Or:  west init -m <your-repo-url>
+#      then clone this repo at workspace root
+manifest:
+  remotes:
+    - name: nxp-zephyr
+      url-base: https://github.com/nxp-zephyr
+  projects:
+    - name: nxp_zsdk
+      remote: nxp-zephyr
+      revision: nxp-v4.3-branch
+      import: true
+  self:
+    path: app
