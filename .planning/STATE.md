@@ -31,26 +31,26 @@
 
 | Phase | Status | Requirements | Completed | Progress |
 |-------|--------|--------------|-----------|----------|
-| Phase 1: Toolchain Foundation | 🔵 Active | 8 | 4 | 50% |
+| Phase 1: Toolchain Foundation | 🔵 Active | 8 | 6 | 75% |
 | Phase 2: WiFi Connectivity | ⚪ Pending | 9 | 0 | 0% |
 | Phase 3: BLE Functionality | ⚪ Pending | 5 | 0 | 0% |
 | Phase 4: WiFi/BLE Coexistence | ⚪ Pending | 5 | 0 | 0% |
 | Phase 5: System Features & OTA | ⚪ Pending | 12 | 0 | 0% |
 | Phase 6: Documentation & Examples | ⚪ Pending | 6 | 0 | 0% |
 
-**Overall Progress:** 4/45 requirements (9%)
+**Overall Progress:** 6/45 requirements (13%)
 
 ---
 
 ## Requirements Status
 
-### Phase 1: Toolchain Foundation (4/8)
+### Phase 1: Toolchain Foundation (6/8)
 
 - [x] TOOL-01: 基于 nxp_zsdk (nxp-v4.3-branch) 创建可编译的 RW61x 工程
-- [ ] TOOL-02: 配置 VS Code + west 开发环境并验证可用性
+- [x] TOOL-02: 配置 VS Code + west 开发环境并验证可用性
 - [x] TOOL-03: 配置设备树（Device Tree）支持 RW61x 硬件
 - [ ] TOOL-04: 验证编译、烧录、运行基本流程
-- [ ] TOOL-05: 集成 JTAG/SWD 硬件调试器支持（pyOCD 或 J-Link）
+- [x] TOOL-05: 集成 JTAG/SWD 硬件调试器支持（pyOCD 或 J-Link）
 - [x] SYS-01: 集成 Zephyr 日志系统（串口输出）
 - [x] DBG-01: 配置串口日志输出
 - [ ] DBG-02: 验证 JTAG/SWD 断点调试
@@ -117,6 +117,11 @@
   - prj.conf and composable Kconfig fragments
   - Device tree overlay for FRDM-RW612
   - Commits: 7f2f402, 9c43306
+- ✅ Plan 01-02 complete: VS Code workspace configuration
+  - launch.json with J-Link debug configuration
+  - tasks.json with west build/flash/blobs tasks
+  - extensions.json with recommended extensions
+  - Commit: c5ee8e7
 
 ---
 
@@ -135,6 +140,9 @@ None yet - project just started.
 | 2026-02-28 | T-topology west manifest | nxp_zsdk as imported project, self.path = app | Standard Zephyr workspace pattern |
 | 2026-02-28 | Composable Kconfig fragments | Separate debug.conf, wifi.conf, ble.conf | Flexible build configurations via EXTRA_CONF_FILE |
 | 2026-02-28 | flexcomm3 as console UART | FRDM-RW612 board default | Matches NXP reference design |
+| 2026-02-28 | J-Link device string "RW612" | Default from research; alternative MIMXRW612 documented | Developer can verify with JLinkExe if needed |
+| 2026-02-28 | SVD file path included but optional | Path provided for peripheral register view; removal instructions if missing | Better debugging experience when available |
+| 2026-02-28 | Dedicated west blobs fetch task | hal_nxp firmware blobs critical for WiFi/BLE; separate task for visibility | Prevents "forgot to fetch blobs" issues |
 
 ---
 
