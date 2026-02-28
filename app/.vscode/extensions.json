@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        // REQUIRED: Install cortex-debug (marus25.cortex-debug) — required for J-Link debugging
+        "marus25.cortex-debug",
+        // Zephyr development extensions
+        "trond-snekvik.kconfig-lang",
+        "trond-snekvik.devicetree",
+        // CMake support
+        "twxs.cmake",
+        "ms-vscode.cmake-tools",
+        // C/C++ IntelliSense
+        "ms-vscode.cpptools"
+    ]
+}

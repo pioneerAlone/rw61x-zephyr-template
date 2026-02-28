@@ -1,0 +1,31 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug (J-Link)",
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "jlink",
+            // If J-Link fails to connect, run `JLinkExe -device ?` to find the exact device string (may be MIMXRW612)
+            "device": "RW612",
+            "interface": "swd",
+            // Remove this line if the SVD file doesn't exist after west update
+            "svdFile": "${workspaceFolder}/../zephyr/dts/arm/nxp/rw612.svd",
+            "executable": "${workspaceFolder}/build/zephyr/zephyr.elf",
+            "preLaunchTask": "west build",
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "none"
+        },
+        {
+            "name": "Attach (J-Link)",
+            "type": "cortex-debug",
+            "request": "attach",
+            "servertype": "jlink",
+            "device": "RW612",
+            "interface": "swd",
+            "svdFile": "${workspaceFolder}/../zephyr/dts/arm/nxp/rw612.svd",
+            "executable": "${workspaceFolder}/build/zephyr/zephyr.elf",
+            "showDevDebugOutput": "none"
+        }
+    ]
+}
