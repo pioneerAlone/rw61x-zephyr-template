@@ -3,6 +3,7 @@
 **Phase:** 01-toolchain-foundation
 **Plan:** 03
 **Date:** 2026-02-28
+**Updated:** 2026-03-01
 
 ---
 
@@ -33,7 +34,27 @@ west update
 
 **Expected:** Downloads nxp_zsdk and all Zephyr dependencies. Takes 5-10 minutes.
 
-### Step 2: Fetch RW61x Radio Firmware Blobs (CRITICAL)
+### Step 2: Create Python Virtual Environment
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+**Expected:** Creates `.venv/` directory in workspace root. Prompt shows `(.venv)` prefix.
+
+**Note:** 后续所有 `west` 和 `pip` 命令都应在此 venv 中执行。每次打开新终端需要重新 `source .venv/bin/activate`。
+
+### Step 3: Install Zephyr Python Requirements
+
+```bash
+source .venv/bin/activate
+pip install -r zephyr/scripts/requirements.txt
+```
+
+**Expected:** Installs west, PyYAML, and other build dependencies into venv（不污染系统 Python 环境）.
+
+### Step 4: Fetch RW61x Radio Firmware Blobs
 
 ```bash
 west blobs fetch hal_nxp
@@ -42,35 +63,34 @@ west blobs list hal_nxp
 
 **Expected:** Downloads WiFi/BLE firmware blobs. The `list` command should show all blobs as present.
 
-### Step 3: Install Zephyr Python Requirements
+**Note:** 此步骤下载 RW61x 射频协处理器的预编译固件（WiFi/BLE firmware image）。Phase 1 基础编译不依赖这些 blobs，但 Phase 2 (WiFi) 和 Phase 3 (BLE) 必须有。建议现在就执行，避免后续遗漏。
+
+### Step 5: Build Firmware ✅
 
 ```bash
-pip3 install -r zephyr/scripts/requirements.txt
-```
-
-**Expected:** Installs west, PyYAML, and other build dependencies.
-
-### Step 4: Build Firmware
-
-```bash
+source .venv/bin/activate
 west build -b frdm_rw612 app/
 ```
 
 **Expected:** Build completes without errors. Output shows:
 ```
 Memory region         Used Size  Region Size  %age Used
-           FLASH:       XXXXX B       XXX KB     X.XX%
-            SRAM:       XXXXX B       XXX KB     X.XX%
+           FLASH:       41572 B        64 MB      0.06%
+             RAM:        9320 B       960 KB      0.95%
 ```
 
-### Step 5: Verify Build Artifacts
+**Verified 2026-03-01:** Build succeeded (169/169 targets, FLASH 41572B, RAM 9320B).
+
+### Step 6: Verify Build Artifacts ✅
 
 ```bash
 ls -lh build/zephyr/zephyr.elf
 ls -lh build/zephyr/zephyr.bin
 ```
 
-**Expected:** Both files exist with reasonable sizes (typically 50-200KB).
+**Expected:** Both files exist with reasonable sizes.
+
+**Verified 2026-03-01:** `zephyr.elf` (1.1MB), `zephyr.bin` (41KB).
 
 ---
 
@@ -85,6 +105,7 @@ ls -lh build/zephyr/zephyr.bin
 ### Step 2: Flash Firmware
 
 ```bash
+source .venv/bin/activate
 west flash --runner jlink
 ```
 
@@ -115,6 +136,8 @@ west flash --runner jlink
 5. Set a breakpoint on the `LOG_INF` line, press Continue
 6. **Expected:** Breakpoint hits, you can inspect variables
 
+**Note:** VS Code terminal 需要使用 venv。已配置 `app/.vscode/settings.json` 指向 `.venv/bin/python`。
+
 ---
 
 ## Troubleshooting
@@ -144,16 +167,26 @@ west blobs fetch hal_nxp
 ### Build Errors
 
 If `west build` fails:
-1. Check that `west update` completed successfully
-2. Verify Python requirements are installed
-3. Try pristine build: `west build -b frdm_rw612 app/ -p`
+1. Ensure venv is activated: `source .venv/bin/activate`
+2. Check that `west update` completed successfully
+3. Verify Python requirements are installed
+4. Try pristine build: `west build -b frdm_rw612 app/ -p`
+
+### Virtual Environment Issues
+
+If `west` command not found after opening new terminal:
+```bash
+source /Users/wangbo/test/claude_proj/.venv/bin/activate
+```
 
 ---
 
 ## Verification Checklist
 
-- [ ] `west build -b frdm_rw612 app/` completes without errors
-- [ ] `build/zephyr/zephyr.elf` and `zephyr.bin` exist
+- [x] Python venv created and dependencies installed (2026-03-01)
+- [x] `west build -b frdm_rw612 app/` completes without errors (2026-03-01)
+- [x] `build/zephyr/zephyr.elf` and `zephyr.bin` exist (2026-03-01)
+- [ ] `west blobs fetch hal_nxp` firmware blobs downloaded
 - [ ] `west flash --runner jlink` successfully programs the device
 - [ ] UART terminal shows structured log output with timestamps
 - [ ] VS Code F5 debug session starts and stops at main() breakpoint
@@ -161,4 +194,5 @@ If `west build` fails:
 
 ---
 
+**Software verification complete (3/8). Hardware verification remaining (5/8).**
 **When all checks pass, Phase 1 (Toolchain Foundation) is complete!**

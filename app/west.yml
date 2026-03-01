@@ -7,7 +7,7 @@ manifest:
     - name: nxp-zephyr
       url-base: https://github.com/nxp-zephyr
   projects:
-    - name: nxp_zsdk
+    - name: nxp-zsdk
       remote: nxp-zephyr
       revision: nxp-v4.3-branch
       import: true

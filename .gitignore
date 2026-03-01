@@ -1,0 +1,25 @@
+# West workspace dependencies (west update pulls these)
+zephyr/
+nxp-zsdk/
+modules/
+bootloader/
+tools/
+zsdk/
+
+# Build output
+build/
+
+# Python virtual environment
+.venv/
+
+# West internal
+.west/
+
+# Cache
+.cache/
+
+# Claude Code
+.claude/
+
+# OS files
+.DS_Store
